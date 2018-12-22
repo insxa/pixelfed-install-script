@@ -1,8 +1,4 @@
 #!/bin/bash
-#
-# no UFW firewall? Go to 129ff an comment installation out
-#
-#
 
 # simple root check
 if [ `id -u ` -ne 0 ]; then
@@ -318,7 +314,7 @@ RECAPTCHA_ENABLED=false
 
 APP_KEY=
 APP_DEBUG=false
-APP_ENV=production
+APP_ENV=local
 APP_NAME="$instance_name"
 
 ADMIN_DOMAIN="$FULLFQDN"
@@ -361,6 +357,9 @@ MIX_PUSHER_APP_CLUSTER="\${PUSHER_APP_CLUSTER}"
 MIX_APP_URL="\${APP_URL}"
 MIX_API_BASE="\${API_BASE}"
 MIX_API_SEARCH="\${API_SEARCH}"
+REMOTE_FOLLOW=false
+ACTIVITY_PUB=false
+
 EOF
 
 ## let user edit the config
@@ -370,6 +369,8 @@ nano .env
 php artisan key:generate
 php artisan storage:link
 php artisan migrate --force
+sed 's/APP_ENV=local/APP_ENV=production/g' .env -i
+php artisan config:cache
 
 ## install supervisor to provide horizon deamon
 apt -y install supervisor
@@ -420,6 +421,7 @@ mysql -uroot pixelfed -e  "INSERT INTO \`profiles\` (\`id\`, \`user_id\`, \`doma
 
 
 # clean up
+cd /root
 apt -y purge apache2-utils dialog
 apt -y autoremove
 rm mysql-apt-config_0.8.11-1_all.deb

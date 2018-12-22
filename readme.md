@@ -11,7 +11,7 @@ If you don't understand something about the above or don't know how to set it up
 ### This script will install a *complete* PixelFed instance server, therefore we need:
 - a Database (Mysql 5.7)
 - a Webserver (nginx - mainline version)
-  - To provide encrypted communication this script sets up [Let's Encrypt](https://letsencrypt.org)
+  - To provide encrypted communication, this script sets up [Let's Encrypt](https://letsencrypt.org)
   - to automate renew Let's Encrypt certificates, certbot will be installed
 - php and php-fpm (7.2)
 - Laravel (php framework - PixelFed is build on it)
@@ -22,7 +22,15 @@ If you don't understand something about the above or don't know how to set it up
 - fail2ban (Intrusion Prevention System)
 - UFW (simple iptables configuration tool)
 
+## How to use this script
+Download -> make it executable -> run script
+```
+wget https://git.buttonmonkeys.de/andre/pixelfed-install-script/raw/branch/master/pixelfed-install.sh
+chmod +x pixelfed-install.sh
+./pixelfed-install.sh
+```
 
 
 ToDo:
-Make installation of Let's Encrypt, fail2ban and UFW optional. Till this is done: Just comment out what you wish not to install.
+- Make installation of Let's Encrypt, fail2ban and UFW optional. Till this is done: Just comment out what you wish not to install.
+- Ask for phpMyadmin installation
