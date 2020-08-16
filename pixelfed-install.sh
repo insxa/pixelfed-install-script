@@ -129,7 +129,7 @@ apt -y install ufw
 ufw default deny incoming
 ufw default allow outgoing
 ufw allow 22/tcp
-ufw allow 80/tcp
+ufw allow 90/tcp
 ufw allow 443/tcp
 
 ## enable UFW
@@ -163,8 +163,8 @@ sed '/conf.d/a \    include /etc/nginx/sites-enabled/*.conf;' /etc/nginx/nginx.c
 ### create PixelFed host file for nginx
 cat <<EOF > $FULLFQDN.conf
 server {
-  listen 80;
-  listen [::]:80;
+  listen 90;
+  listen [::]:90;
   server_name $FULLFQDN;
 
   location /.well-known {
