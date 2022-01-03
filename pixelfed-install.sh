@@ -107,7 +107,7 @@ debconf-set-selections <<< "mysql-community-server  mysql-community-server/re-ro
 wget https://dev.mysql.com/get/mysql-apt-config_0.8.11-1_all.deb
 dpkg -i mysql-apt-config_0.8.11-1_all.deb
 
-## add php 7.2 repo
+## add php 7.4 repo
 wget -q -O- https://packages.sury.org/php/apt.gpg | apt-key add -
 echo "deb https://packages.sury.org/php/ stretch main" | tee /etc/apt/sources.list.d/php.list
 
@@ -163,8 +163,8 @@ sed '/conf.d/a \    include /etc/nginx/sites-enabled/*.conf;' /etc/nginx/nginx.c
 ### create PixelFed host file for nginx
 cat <<EOF > $FULLFQDN.conf
 server {
-  listen 90;
-  listen [::]:90;
+  listen 80;
+  listen [::]:80;
   server_name $FULLFQDN;
 
   location /.well-known {
@@ -214,7 +214,7 @@ server {
   location ~ \.php$ {
     try_files \$uri /index.php =404;
     fastcgi_split_path_info ^(.+\.php)(/.+)$;
-    fastcgi_pass unix:/run/php/php7.2-fpm.sock;
+    fastcgi_pass unix:/run/php/php7.4-fpm.sock;
     fastcgi_index index.php;
     fastcgi_param SCRIPT_FILENAME \$document_root\$fastcgi_script_name;
     include fastcgi_params;
@@ -257,19 +257,19 @@ mysql -uroot -e "FLUSH PRIVILEGES;"
 
 
 ## install php & php-fpm
-apt -y install php7.2 php7.2-fpm php7.2-cli php7.2-json php7.2-mbstring php7.2-bcmath php7.2-zip php7.2-mysql php7.2-xml php-mcrypt libfreetype6 libjpeg62-turbo libpng16-16 libxpm4 libvpx4 libmagickwand-6.q16-3 optipng pngquant jpegoptim gifsicle imagemagick php7.2-gd php-imagick  php-bcmath
+apt -y install php7.4 php7.4-fpm php7.4-cli php7.4-json php7.4-mbstring php7.4-bcmath php7.4-zip php7.4-mysql php7.4-xml php-mcrypt libfreetype6 libjpeg62-turbo libpng16-16 libxpm4 libvpx4 libmagickwand-6.q16-3 optipng pngquant jpegoptim gifsicle imagemagick php7.4-gd php-imagick  php-bcmath
 
 #### configure php-fpm
-sed 's/pm.max_children = 5/pm.max_children = 25/g' /etc/php/7.2/fpm/pool.d/www.conf -i
-sed 's/;pm.max_requests/pm.max_requests/g' /etc/php/7.2/fpm/pool.d/www.conf -i
+sed 's/pm.max_children = 5/pm.max_children = 25/g' /etc/php/7.4/fpm/pool.d/www.conf -i
+sed 's/;pm.max_requests/pm.max_requests/g' /etc/php/7.4/fpm/pool.d/www.conf -i
 
 ### set php upload size
-sed 's/upload_max_filesize = 2M/upload_max_filesize = 20M/g' /etc/php/7.2/fpm/php.ini -i
-sed 's/post_max_size = 8M/post_max_size = 20M/g' /etc/php/7.2/fpm/php.ini -i
+sed 's/upload_max_filesize = 2M/upload_max_filesize = 20M/g' /etc/php/7.4/fpm/php.ini -i
+sed 's/post_max_size = 8M/post_max_size = 20M/g' /etc/php/7.4/fpm/php.ini -i
 #set php max_execution_time
-sed 's|max_execution_time =.*|max_execution_time = 600|g' /etc/php/7.2/fpm/php.ini -i
+sed 's|max_execution_time =.*|max_execution_time = 600|g' /etc/php/7.4/fpm/php.ini -i
 
-systemctl restart php7.2-fpm.service
+systemctl restart php7.4-fpm.service
 
 
 ## install composer
