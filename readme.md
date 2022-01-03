@@ -13,7 +13,7 @@ If you don't understand something about the above or don't know how to set it up
 - a Webserver (nginx - mainline version)
   - To provide encrypted communication, this script sets up [Let's Encrypt](https://letsencrypt.org)
   - to automate renew Let's Encrypt certificates, certbot will be installed
-- php and php-fpm (7.2)
+- php and php-fpm (7.4)
 - Laravel (php framework - PixelFed is build on it)
 - a Redis database
 - supervisor (to run horizon as a daemon)
