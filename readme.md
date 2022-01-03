@@ -25,7 +25,7 @@ If you don't understand something about the above or don't know how to set it up
 ## How to use this script
 Download -> make it executable -> run script
 ```
-wget https://git.buttonmonkeys.de/andre/pixelfed-install-script/raw/branch/master/pixelfed-install.sh
+wget https://raw.githubusercontent.com/insxa/pixelfed-install-script/master/pixelfed-install.sh
 chmod +x pixelfed-install.sh
 ./pixelfed-install.sh
 ```
